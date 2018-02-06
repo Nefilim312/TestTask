@@ -10,6 +10,7 @@ BoxView = Backbone.View.extend({
    events: {
       'load': 'setImageSize'
    },
+   className: 'box_draggable box_grey',
    template: _.template($('#boxTemplate').html()),
    initialize: function() {
       _.bindAll(this, 'render');
@@ -23,15 +24,28 @@ BoxView = Backbone.View.extend({
    },
    setImageSize: function() {
       // Делаем максимальную велечину равной 500px
-      var MAX_VAL = 500;
-      var img = this.$('img');
+      var MAX_VAL = 200;
+      var height, width;
+      var img = this.$('img')[0];
 
-      if (img.width() > img.height() && img.width() > MAX_VAL) {
-         img.width(MAX_VAL);
-      } else if (img.height() > MAX_VAL) {
-         img.height(MAX_VAL);
+      // Устанавливаем новые размеры на основе MAX_VAL
+      if (img.width > img.height && img.width > MAX_VAL){
+         width = MAX_VAL;
+         height = img.height * (MAX_VAL / img.width);
+      } else if (img.height > img.width && img.height > MAX_VAL){
+         height = MAX_VAL;
+         width = img.width * (MAX_VAL / img.height);
+      } else {
+         height = img.height;
+         width = img.width;
       }
-      img.show();
+
+      // Делаем серый блок размером с картинку
+      // С анимацией чтобы не было дёргания
+      this.$el.animate({height: height, width: width}, 150)
+      // this.$el.width(width).height(height);
+
+      this.$('img').fadeIn();
 
       return this;
    }
@@ -55,13 +69,31 @@ MainView = Backbone.View.extend({
       this.$('#addImageInput').trigger('click');
    },
    addVideo: function() {
-      this.$('#addImageInput').trigger('click');
+      var rickRoll = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+      var url = prompt("Please enter youtube video URL", rickRoll);
+      var videoId = url.match(/youtube\.com.*(\?v=|\/embed\/)(.{11})/).pop();
+
+      if (videoId.length === 11) {
+         var thumbnail = 'https://img.youtube.com/vi/' + videoId + '/0.jpg';
+         this.collection.add(new Box({
+            src: thumbnail,
+            aspectRatio: true
+         }))
+      }
    },
    addBox: function(box) {
       var boxView = new BoxView({
          model: box
       });
-      this.$('#container').append($(boxView.render().el).draggable())
+      this.$('#container').append($(boxView.render().el).draggable().resizable({
+        aspectRatio: box.get('aspectRatio'),
+        handles: {
+          'ne': '#negrip',
+          'se': '#segrip',
+          'sw': '#swgrip',
+          'nw': '#nwgrip'
+        }
+      }))
    },
    readURL: function(event) {
       var input = event.target;
@@ -72,7 +104,8 @@ MainView = Backbone.View.extend({
 
          reader.onload = function(e) {
             self.collection.add(new Box({
-               src: e.target.result
+               src: e.target.result,
+               aspectRatio: false
             }))
          };
 
@@ -81,9 +114,7 @@ MainView = Backbone.View.extend({
    }
 })
 
-boxes = new BoxCollection([{
-   src: 'https://yt3.ggpht.com/-dcBh0pHnxS8/AAAAAAAAAAI/AAAAAAAAAAA/IjOqcL9bAXg/s88-c-k-no-mo-rj-c0xffffff/photo.jpg'
-}]);
+boxes = new BoxCollection();
 App = new MainView({
    collection: boxes
 });

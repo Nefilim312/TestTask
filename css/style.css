@@ -1,6 +1,57 @@
-.box_draggable{
-   cursor: move;
+.box_draggable {
+  position: absolute !important;
 }
-.box_grey{
-   background-color: #ccc;
+
+.box_draggable img {
+  cursor: move;
+}
+
+.box_grey {
+  background-color: #ccc;
+  height: 300px;
+  width: 300px;
+  border: 1px solid #a9a9a9;
+}
+
+.box__content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: hidden;
+}
+
+.box__content img {
+  width: 100%;
+  height: 100%;
+}
+
+#nwgrip, #negrip, #swgrip, #segrip {
+  width: 10px;
+  height: 10px;
+  background-color: #ffffff;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  position: absolute;
+}
+
+#negrip {
+  top: -6px;
+  right: -6px;
+}
+
+#segrip {
+  bottom: -6px;
+  right: -6px;
+}
+
+#nwgrip {
+  top: -6px;
+  left: -6px;
+}
+
+#swgrip {
+  bottom: -6px;
+  left: -6px;
 }
