@@ -1,23 +1,32 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <link rel="stylesheet" href="css/style.css">
-  </head>
-  <body>
-    <div id="main">
+
+<head>
+   <meta charset="utf-8">
+   <title></title>
+   <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+   <div id="main">
       <button id="addImage">Add image</button>
-      <input  id="addImageInput" type="file" style="display: none" />
+      <input id="addImageInput" type="file" style="display: none" />
       <button id="addVideo">Add video</button>
 
       <div id="container"></div>
-    </div>
+   </div>
 
-    <script src="js/jquery.min.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
-    <script src="js/underscore.js"></script>
-    <script src="js/backbone.js"></script>
-    <script src="js/main.js"></script>
-  </body>
+   <script type="text/template" id="boxTemplate">
+
+         <img src="<%= this.model.get('src') %>">
+
+   </script>
+
+   <script src="js/jquery.min.js"></script>
+   <script src="js/jquery-ui.min.js"></script>
+   <script src="js/underscore.js"></script>
+   <script src="js/backbone.js"></script>
+   <script src="js/main.js"></script>
+
+</body>
 </html>

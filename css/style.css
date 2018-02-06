@@ -1,0 +1,6 @@
+.box_draggable{
+   cursor: move;
+}
+.box_grey{
+   background-color: #ccc;
+}
