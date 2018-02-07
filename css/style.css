@@ -39,19 +39,23 @@
 #negrip {
   top: -6px;
   right: -6px;
+  cursor: ne-resize;
 }
 
 #segrip {
   bottom: -6px;
   right: -6px;
+  cursor: se-resize;
 }
 
 #nwgrip {
   top: -6px;
   left: -6px;
+  cursor: nw-resize;
 }
 
 #swgrip {
   bottom: -6px;
   left: -6px;
+  cursor: sw-resize;
 }
