@@ -1,7 +1,7 @@
 Box = Backbone.Model.extend({
    defaults: {
       "aspectRatio": false,
-      "top": 0,
+      "top": 48,
       "left": 0,
       "height": 500,
       "width": 500
@@ -9,7 +9,13 @@ Box = Backbone.Model.extend({
 })
 
 BoxCollection = Backbone.Collection.extend({
-   model: Box
+   model: Box,
+   // Получить самую нижнюю границу
+   getLowest: function(){
+      return _.max(this.models, function(box){
+         return box.get('top') + box.get('height');
+      })
+   }
 })
 
 BoxView = Backbone.View.extend({
@@ -23,12 +29,30 @@ BoxView = Backbone.View.extend({
    },
    render: function() {
       this.$el.html(this.template(this.model));
+      this.$el.offset({top: this.model.get('top')});
       this.$('img').hide().one('load', this.setImageSize.bind(this)); // Скрываем картинку пока не установим ей разер, чтобы не дергалось
+      this.$el
+      .draggable({
+         stop: this.onDragStop.bind(this),
+         drag: this.notifyToCheckHeight.bind(this)
+      })
+      .resizable({
+         aspectRatio: this.model.get('aspectRatio'),
+         stop: this.onResizeEnd.bind(this),
+         resize: this.notifyToCheckHeight.bind(this),
+         handles: {
+            'ne': '#negrip',
+            'se': '#segrip',
+            'sw': '#swgrip',
+            'nw': '#nwgrip'
+         }
+      })
       return this;
    },
+   // Подгоняет размеры контейнера под размеры изображения
    setImageSize: function() {
       // Делаем максимальную велечину равной 500px
-      var MAX_VAL = 200;
+      var MAX_VAL = 500;
       var height, width;
       var img = this.$('img')[0];
 
@@ -53,11 +77,24 @@ BoxView = Backbone.View.extend({
             height: height,
             width: width
          }, 150)
-         // this.$el.width(width).height(height);
+      // this.$el.width(width).height(height);
 
       this.$('img').fadeIn();
 
       return this;
+   },
+   // Конец перемещения. Записать данные в модель
+   onDragStop: function(event, jqEvent) {
+      this.model.set('top', parseInt(jqEvent.position.top));
+      this.model.set('left', parseInt(jqEvent.position.left));
+   },
+   // Конец ресайза. Записать данные в модель
+   onResizeEnd: function(event, jqEvent) {
+      this.model.set('height', parseInt(jqEvent.size.height));
+      this.model.set('width', parseInt(jqEvent.size.width));
+   },
+   notifyToCheckHeight: function() {
+      this.$el.trigger('boxDrag', arguments);
    }
 })
 
@@ -66,18 +103,17 @@ MainView = Backbone.View.extend({
    events: {
       'click #addImage': 'addImage',
       'click #addVideo': 'addVideo',
-      'change #addImageInput': 'readURL'
+      'change #addImageInput': 'readFile',
+      'boxDrag .box_draggable': 'checkHeight'
    },
-   initialize: function() {
-      this.collection.on('add', this.addBox, this);
+   initialize: function(){
+      this.$el.height(window.innerHeight);
    },
-   render: function() {
-      this.collection.each(this.addBox, this);
-      return this;
-   },
+   // Добавить изображение
    addImage: function() {
       this.$('#addImageInput').trigger('click');
    },
+   // Получение постера видео по ссылке на видео
    addVideo: function() {
       var rickRoll = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
       var url = prompt("Please enter youtube video URL", rickRoll);
@@ -88,28 +124,31 @@ MainView = Backbone.View.extend({
 
          if (videoId.length === 11) {
             var thumbnail = 'https://img.youtube.com/vi/' + videoId + '/0.jpg';
-            this.collection.add(new Box({
+
+            this.addBox(new Box({
                src: thumbnail,
-               aspectRatio: true
-            }))
+               aspectRatio: false
+            }));
          }
       }
    },
+   // Добавляет экземпляр BoxView
    addBox: function(box) {
       var boxView = new BoxView({
          model: box
       });
-      this.$('#container').append($(boxView.render().el).draggable().resizable({
-         aspectRatio: box.get('aspectRatio'),
-         handles: {
-            'ne': '#negrip',
-            'se': '#segrip',
-            'sw': '#swgrip',
-            'nw': '#nwgrip'
-         }
-      }))
+
+      var lowestBox = this.collection.getLowest();
+      if (lowestBox instanceof Box) {
+         boxView.model.set('top', lowestBox.get('top') + lowestBox.get('height'));
+      }
+
+      this.collection.add(boxView.model);
+
+      this.$('#container').append(boxView.render().el);
    },
-   readURL: function(event) {
+   // Загрузка картинки
+   readFile: function(event) {
       var input = event.target;
       var self = this;
 
@@ -117,13 +156,23 @@ MainView = Backbone.View.extend({
          var reader = new FileReader();
 
          reader.onload = function(e) {
-            self.collection.add(new Box({
+            $(input).val(""); // Чтобы change срабатывал на один и тот же файл
+
+            self.addBox(new Box({
                src: e.target.result,
-               aspectRatio: false
+               aspectRatio: true
             }))
-         };
+         }
 
          reader.readAsDataURL(input.files[0]);
+      }
+   },
+   // Установка высоты основного View
+   checkHeight: function(boxEvent, event, jqEvent){
+      var bottom = jqEvent.helper.position().top + jqEvent.helper.height();
+
+      if (bottom > this.$el.height()){
+         this.$el.height(bottom);
       }
    }
 })

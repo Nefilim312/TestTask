@@ -2,37 +2,46 @@
 <html>
 
 <head>
-   <meta charset="utf-8">
-   <title></title>
-   <link rel="stylesheet" href="css/style.css">
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-   <div id="main">
-      <button id="addImage">Add image</button>
+  <div id="main">
+    <div class="main__buttons">
+      <button class="main__button" id="addImage">
+            <img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAxMjkgMTI5IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCAxMjkgMTI5IiB3aWR0aD0iMTZweCIgaGVpZ2h0PSIxNnB4Ij4KICA8Zz4KICAgIDxnPgogICAgICA8Y2lyY2xlIGN4PSI3NiIgY3k9IjQyLjQiIHI9IjYuNiIgZmlsbD0iIzAwMDAwMCIvPgogICAgICA8cGF0aCBkPSJtNi40LDExOS41YzAsMCAwLDAuMSAwLDAgMCwwLjEgMCwwLjEgMC4xLDAuMSAwLjEsMC4yIDAuMiwwLjUgMC4zLDAuNyAwLDAuMSAwLjEsMC4xIDAuMSwwLjIgMCwwLjEgMC4xLDAuMSAwLjEsMC4yIDAsMCAwLjEsMC4xIDAuMSwwLjEgMC4xLDAuMiAwLjMsMC4zIDAuNCwwLjUgMCwwIDAuMSwwLjEgMC4xLDAuMSAwLjEsMC4xIDAuMSwwLjEgMC4yLDAuMiAwLjEsMCAwLjEsMC4xIDAuMSwwLjEgMC4xLDAuMSAwLjIsMC4xIDAuMywwLjIgMCwwIDAuMSwwLjEgMC4xLDAuMSAwLDAgMC4xLDAgMC4xLDAuMSAwLjEsMC4xIDAuMywwLjEgMC40LDAuMiAwLjEsMCAwLjEsMCAwLjIsMC4xIDAuMSwwIDAuMiwwLjEgMC4yLDAuMSAwLjMsMC4xIDAuNiwwLjEgMC45LDAuMWgxMDguMmMyLjMsMCA0LjEtMS44IDQuMS00LjF2LTI3LTgwLjljMC0yLjMtMS44LTQuMS00LjEtNC4xaC0xMDcuOWMtMi4zLDAtNC4xLDEuOC00LjEsNC4xdjgwLjcgMjdjMCwwLjMgMC4xLDAuNyAwLjEsMSAwLDAuMSAwLDAuMiAwLDAuMnptMTA4LjEtNS4yaC05MC40bDY2LjgtNDMuNyAyMy42LDIyLjV2MjEuMnptLTEwMC05OS42aDEwMHY2Ny4xbC0yMC4zLTE5LjRjLTEuNC0xLjMtMy41LTEuNS01LjEtMC41bC0xOS4xLDEyLjYtMTMuMy0xMy40Yy0xLjQtMS40LTMuNS0xLjYtNS4xLTAuNmwtMzcuMSwyMy40di02OS4yem0wLDc4LjlsMzguNy0yNC40IDkuOCw5LjktNDguNSwzMS43di0xNy4yeiIgZmlsbD0iIzAwMDAwMCIvPgogICAgPC9nPgogIDwvZz4KPC9zdmc+Cg==" />
+            image
+         </button>
       <input id="addImageInput" type="file" style="display: none" />
-      <button id="addVideo">Add thumbnail</button>
+      <button class="main__button" id="addVideo">
+<img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTguMS4xLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDU0My45MDYgNTQzLjkwNiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTQzLjkwNiA1NDMuOTA2OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgd2lkdGg9IjE2cHgiIGhlaWdodD0iMTZweCI+CjxnPgoJPHBhdGggZD0iTTkxLjY1NCwxMy43NThoNDAuNzkzbDUuMjQ5LDIxbDQuNDQ0LDE1LjUwN2wzLjYzMywxNS4xODZsMy42MzMsMTUuODMzbDIuODI4LDEzLjI1aDEuNjE1ICAgbDIuODI4LTEzLjI1bDMuMjMxLTE1LjgzM2w0LjAzNi0xNS4xODZsNC4wNDEtMTUuNTA3bDUuNjUxLTIxaDM5LjU4bC00MiwxMjYuMDA3djg5LjQ4OUgxMzMuNjZ2LTg5LjQ5NEw5MS42NTQsMTMuNzU4eiIgZmlsbD0iIzAwMDAwMCIvPgoJPHBhdGggZD0iTTI2My42OTcsNjYuNzRjMzEuOTA2LDAsNDguMDYsMTUuMTg2LDQ4LjA2LDQ1LjIzMXY3NC4zMTRjMCwzMC4wNDUtMTYuMTU5LDQ1LjIzMS00OC4wNiw0NS4yMzEgICBzLTQ4LjA2LTE1LjE4Ni00OC4wNi00NS4yMzF2LTc0LjMxNEMyMTUuNjM3LDgxLjkzMSwyMzEuNzkxLDY2Ljc0LDI2My42OTcsNjYuNzR6IE0yNjMuNjk3LDkyLjU5MiAgIGMtOC40ODUsMC0xMi45MjMsNS4xNjctMTIuOTIzLDE0Ljg2djgzLjM1NGMwLDkuMzcyLDQuODQ2LDE0Ljg2NSwxMi45MjMsMTQuODY1YzguMDc3LDAsMTIuOTE4LTUuNDkzLDEyLjkxOC0xNC44NjV2LTgzLjM1NCAgIEMyNzYuNjE0LDk3Ljc1OSwyNzEuNzc0LDkyLjU5MiwyNjMuNjk3LDkyLjU5MnoiIGZpbGw9IiMwMDAwMDAiLz4KCTxwYXRoIGQ9Ik00MTEuOTExLDIyOS4yNTRsLTIuODM0LTEzLjg5MWMtMTQuNTQ0LDExLjk1NS0yMy4wMjQsMTYuMTU0LTMzLjEyNCwxNi4xNTQgICBjLTguNDg1LDAtMTcuMzYxLTMuODc4LTIxLjQwMy05LjA1MWMtNC40NDQtNS40OTMtNS42NjItMTEuMzA4LTUuNjYyLTI3Ljc4M1Y2OC42ODJoMzUuMTQydjEyNS4wMzMgICBjMCw4LjA3NywyLjgzNCwxMS45NTUsOS4yODQsMTEuOTU1YzQuNDM4LDAsOC40OS0xLjYxNSwxNS43NTItNi40NjJWNjguNjgyaDM1LjEzMXYxNjAuNTcySDQxMS45MTF6IiBmaWxsPSIjMDAwMDAwIi8+Cgk8cGF0aCBkPSJNOTQuNjE4LDI1OC41MjFDNDIuMzgxLDI1OC41MjEsMCwzMDAuOTAzLDAsMzUzLjE0NXY4Mi40NjJjMCw1Mi4yMzcsNDIuMzgxLDk0LjU0Miw5NC42MTgsOTQuNTQyICAgaDM1NC42NzFjNTIuMjM3LDAsOTQuNjE4LTQyLjMsOTQuNjE4LTk0LjU0MnYtODIuNDYyYzAtNTIuMjM3LTQyLjM4MS05NC42MTgtOTQuNjE4LTk0LjYxOEw5NC42MTgsMjU4LjUyMUw5NC42MTgsMjU4LjUyMXogICAgTTUwLjg5MywyOTQuOTMxaDk5LjUzNXYyNS40OTNoLTMzLjQwMVY0OTAuODRIODIuODc1VjMyMC40MTNINTAuODkzQzUwLjg5MywzMjAuNDEzLDUwLjg5MywyOTQuOTMxLDUwLjg5MywyOTQuOTMxeiAgICBNMjc3LjQ1OCwyOTQuOTMxaDMxLjg5NXY2My43MTljMTIuNDgzLTExLjE2NiwyMC45NDYtMTUuNTcyLDMwLjQ4MS0xNS41NzJjNy4zNDgsMCwxNS40MDMsMy41MzUsMTkuMDgsOC4yNDYgICBjNC4wMzYsNS4yOTIsNS4xNjIsMTAuNTg0LDUuMTYyLDI2LjE1NnY4MS4wNDhjMCwxNS4yNzMtMS4xMjYsMjAuNTMyLTUuMTYyLDI1LjgxNGMtMy42NzcsNC45OTgtMTEuNjk0LDguNDk2LTE5LjQwNyw4LjQ5NiAgIGMtOS41NTEsMC0xNy42NzItNC4zNjgtMzAuMTU0LTE1LjgyMnYxMy44MzJoLTMxLjg5NVYyOTQuOTMxeiBNNDQxLjk1NywzNDMuMDY2YzI2LjQzNCwwLDQyLjg5OCwxMy43ODMsNDIuODk4LDM2LjM5OHY0Mi44OTggICBoLTU1LjM5MXYzMS45ODJjMCwxMC41NzQsMy4yOTEsMTQuOTk2LDExLjc0MywxNC45OTZjNC4wNDEsMCw3LjY1My0xLjc3Myw5LjQ5MS00LjQxN2MxLjgzOC0yLjYzOCwyLjI1Mi01LjgzMSwyLjI1Mi0xNi40MXYtOC44MjIgICBoMzEuOXY1LjMyNWMwLjM1OSwzLjgyNCwwLjQwOCw2LjQ1MSwwLjQwOCw3LjkxNGMwLDI1Ljg0Ni0xNS44LDM5LjkwMS00NC44MDIsMzkuOTAxYy0yNy41MzMsMC00Mi45NzktMTQuNjI2LTQyLjk3OS00MS4wNyAgIHYtNjcuODc5QzM5Ny40NzYsMzU2LjI3Miw0MTIuMjIxLDM0My4wNjYsNDQxLjk1NywzNDMuMDY2TDQ0MS45NTcsMzQzLjA2NnogTTE1Ni4yNTksMzQ0LjgxMmgzMS45ODJWNDU4LjUxICAgYzAsNy4zNDgsMi41NCwxMC44MjQsOC40MTQsMTAuODI0YzQuMDM2LDAsNy43MTgtMS40MywxNC4zMjYtNS44MzFWMzQ0LjgxMmgzMS45ODd2MTQ2LjAxN2gtMjkuNDA0bC0yLjU4NC0xMi42NjIgICBjLTEzLjIxNywxMC44NjctMjAuODkxLDE0LjY1OC0zMC4wNjcsMTQuNjU4Yy03LjcwNywwLTE1LjgyMi0zLjQ2NS0xOS40ODgtOC4xNjljLTQuMDM2LTQuOTgyLTUuMTYyLTEwLjMyOS01LjE2Mi0yNS4zMTMgICBMMTU2LjI1OSwzNDQuODEyTDE1Ni4yNTksMzQ0LjgxMnogTTMyMy42NzksMzY2LjU2M2MtNC4wMzYsMC03LjcxOCwxLjUwMS0xNC4zMjcsNS45MDd2OTEuMDM5ICAgYzYuNjE0LDQuNDExLDEwLjI5MSw1LjgzMSwxNC4zMjcsNS44MzFjNS44NzQsMCw4LjQ5Ni0zLjQ4Niw4LjQ5Ni0xMC44MjR2LTgxLjA1OCAgIEMzMzIuMTc1LDM2OS44MzIsMzI5LjU1MywzNjYuNTYzLDMyMy42NzksMzY2LjU2M3ogTTQ0MS4yMDYsMzY2LjU2M2MtNy4zNDgsMC0xMS43NDMsMy44MjQtMTEuNzQzLDEwLjU2OHYyNC42NTVoMjMuNDg2di0yNC42NTUgICBDNDUyLjk0OSwzNzAuMzg3LDQ0OC41NDksMzY2LjU2Myw0NDEuMjA2LDM2Ni41NjN6IiBmaWxsPSIjMDAwMDAwIi8+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==" />
+            thumbnail
+         </button>
+    </div>
 
-      <div id="container"></div>
-   </div>
+    <div id="container"></div>
+  </div>
 
-   <script type="text/template" id="boxTemplate">
-      <div class="box__content">
-         <img src="<%= this.model.get('src') %>">
-      </div>
-      <!--Begin Define corners -->
-      <div class="ui-resizable-handle ui-resizable-nw" id="nwgrip"></div>
-      <div class="ui-resizable-handle ui-resizable-ne" id="negrip"></div>
-      <div class="ui-resizable-handle ui-resizable-sw" id="swgrip"></div>
-      <div class="ui-resizable-handle ui-resizable-se" id="segrip"></div>
-      <!--End Define corners-->
-   </script>
+  <script type="text/template" id="boxTemplate">
+    <div class="box__content">
+      <img src="<%= this.model.get('src') %>">
+    </div>
+    <!--Begin Define corners -->
+    <div class="ui-resizable-handle ui-resizable-nw" id="nwgrip"></div>
+    <div class="ui-resizable-handle ui-resizable-ne" id="negrip"></div>
+    <div class="ui-resizable-handle ui-resizable-sw" id="swgrip"></div>
+    <div class="ui-resizable-handle ui-resizable-se" id="segrip"></div>
+    <!--End Define corners-->
+  </script>
 
-   <script src="js/jquery.min.js"></script>
-   <script src="js/jquery-ui.min.js"></script>
-   <script src="js/underscore.js"></script>
-   <script src="js/backbone.js"></script>
-   <script src="js/main.js"></script>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/jquery-ui.min.js"></script>
+  <script src="js/underscore.js"></script>
+  <script src="js/backbone.js"></script>
+  <script src="js/main.js"></script>
 
 </body>
+
 </html>
